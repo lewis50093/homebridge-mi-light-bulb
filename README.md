@@ -4,7 +4,7 @@
 ## Configuration
 "platform": "MiLightBulbPlatform",
             "deviceCfgs": [
-                {
+            {
                     "type": "MiPhilipsSmartBulb",
                     "ip": "",
                     "token": "",
