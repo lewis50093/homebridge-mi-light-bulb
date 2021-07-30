@@ -1,0 +1,31 @@
+{
+  "name": "homebridge-mi-light-bulb",
+  "version": "1.0.0",
+  "description": "XiaoMi light  bulb plugins for HomeBridge(https://github.com/nfarina/homebridge).",
+  "keywords": [
+    "homebridge-plugin",
+    "xiaomi",
+    "mi",
+    "light",
+    "bulb",
+    "lamp",
+    "ceiling"
+  ],
+  "author": "Lewis",
+  "homepage": "",
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "bugs": {
+    "url": ""
+  },
+  "engines": {
+    "node": ">=7.0.0",
+    "homebridge": ">=0.4.1"
+  },
+  "dependencies": {
+	"colorsys": "^1.0.22",
+    "miio": "0.14.1"
+  }
+}
