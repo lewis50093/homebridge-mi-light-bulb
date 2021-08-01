@@ -72,9 +72,9 @@ MiSmartLightBulb.prototype.getServices = function() {
 		lightService
         .addCharacteristic(Characteristic.ColorTemperature)
         .setProps({
-            minValue: 1700,
-            maxValue: 6500,
-            minStep: 100
+            minValue: 50,
+            maxValue: 400,
+            minStep: 1
         })
         .on('get', this.getColorTemperature.bind(this))
         .on('set', this.setColorTemperature.bind(this));
@@ -194,7 +194,7 @@ MiSmartLightBulb.prototype.getSaturation = function(callback) {
 		const blue = result[0] & 0xFF;
 		const hsv = colorsys.rgb_to_hsv({ r: red, g: green, b: blue });
 		that.hsv = hsv;
-        that.platform.log.debug("[MiLightPlatform][DEBUG]MiSmartLightBulb - Light - getSaturation: " + hsv);
+        that.platform.log.debug("[MiLightPlatform][DEBUG]MiSmartLightBulb - Light - getSaturation: " + hsv.r + ',' + hsv.g + ',' + hsv.b);
         callback(null, hsv.s);
     }).catch(function(err) {
         that.platform.log.error("[MiLightPlatform][ERROR]MiSmartLightBulb - Light - getSaturation Error: " + err);
@@ -244,7 +244,14 @@ MiSmartLightBulb.prototype.getColorTemperature = function(callback) {
 }
 
 MiSmartLightBulb.prototype.setColorTemperature = function(value, callback) {
-    var that = this;
+	value = value - 50;
+    value = 1700 + Math.round(value *13.7);
+    if(value == 0) {
+        value = 1700;
+    }else if(value>6500){
+	    value = 6500;
+	}
+	var that = this;
 	that.platform.log.debug("[MiLightPlatform][DEBUG]MiSmartLightBulb - Light - setColorTemperature Value: " + value);
     this.device.call("set_ct_abx", [value,'sudden',500]).then(result => {
         that.platform.log.debug("[MiLightPlatform][DEBUG]MiSmartLightBulb - Light - setColorTemperature Result: " + result);
